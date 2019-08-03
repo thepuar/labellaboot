@@ -1,0 +1,51 @@
+package com.frapecha.labella.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.frapecha.labella.DAO.TiendaDAO;
+import com.frapecha.labella.model.Tienda;
+
+@Service
+@Transactional
+public class TiendaServiceImpl implements TiendaService{
+
+	@Autowired
+	TiendaDAO TiendaDAO;
+	
+	@Override
+	public Tienda findById(Long id) {
+		
+		Optional<Tienda> opTienda =  TiendaDAO.findById(id);
+		if(opTienda.isPresent())
+			return opTienda.get();
+		else return null;
+	}
+	
+	public List<Tienda> findAll(){
+		return TiendaDAO.findAll();
+	}
+	
+	public void saveTienda(Tienda Tienda) {
+		TiendaDAO.save(Tienda);
+	}
+	
+	public void deleteTienda(Tienda Tienda) {
+		TiendaDAO.delete(Tienda);
+	}
+
+	@Override
+	public long countAllTiendas() {
+		return TiendaDAO.count();
+	}
+	
+	
+	
+	
+
+}

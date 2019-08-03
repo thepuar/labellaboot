@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+ 
+<tiles-definitions>  
+  
+   <!-- Base Definition -->
+   <definition name="base-definition"
+       template="/WEB-INF/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="" />  
+   </definition>  
+   
+    <!-- Home Page -->
+   <definition name="home" extends="base-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/admin.jsp" />  
+   </definition>  
+  
+  <!-- Login -->
+   <definition name="login" extends="base-definition">  
+       <put-attribute name="title" value="Index" />  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/login.jsp" />  
+   </definition>  
+   
+   <!-- Index -->
+   <definition name="principal" extends="base-definition">  
+       <put-attribute name="title" value="Bienvenido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/index.jsp" />  
+   </definition> 
+  
+  
+   
+   <!-- Resumen -->
+   <definition name="resumen" extends="base-definition">  
+       <put-attribute name="title" value="Resumen" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/resumen.jsp" />  
+   </definition> 
+   
+    <!-- Config -->
+   <definition name="labellaprovconf" extends="base-definition">  
+       <put-attribute name="title" value="Configuracion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/labellaprovconf.jsp" />  
+   </definition> 
+   
+    <!-- Tiendas -->
+   <definition name="tiendas" extends="base-definition">  
+       <put-attribute name="title" value="Tiendas" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/tiendas.jsp" />  
+   </definition> 
+   <!-- Tienda -->
+   <definition name="tienda" extends="base-definition">  
+       <put-attribute name="title" value="Tienda" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/tienda.jsp" />  
+   </definition> 
+   
+   <!-- Secciones -->
+   <definition name="secciones" extends="base-definition">  
+       <put-attribute name="title" value="Secciones" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/secciones.jsp" />  
+   </definition> 
+   <!-- Seccion -->
+   <definition name="seccion" extends="base-definition">  
+       <put-attribute name="title" value="Seccion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/seccion.jsp" />  
+   </definition> 
+   
+    <!-- Proveedores -->
+   <definition name="proveedores" extends="base-definition">  
+       <put-attribute name="title" value="Proveedores" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/proveedores.jsp" />  
+   </definition> 
+   
+   <!-- Proveedor -->
+   <definition name="proveedor" extends="base-definition">  
+       <put-attribute name="title" value="Proveedor" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/proveedor.jsp" />  
+   </definition> 
+   
+   <!-- Update Proveedor -->
+   <definition name="proveedor/update" extends="base-definition">  
+       <put-attribute name="title" value="Actualizar proveedor" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updateproveedor.jsp" />  
+   </definition> 
+   
+   <!-- Pedidos -->
+   <definition name="pedidos" extends="base-definition">  
+       <put-attribute name="title" value="Pedidos" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/pedidos.jsp" />  
+   </definition> 
+   
+   <!-- Pedido -->
+   <definition name="pedido" extends="base-definition">  
+       <put-attribute name="title" value="Pedido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/pedido.jsp" />  
+   </definition> 
+   
+   <!-- Update Pedido -->
+   <definition name="pedido/update" extends="base-definition">  
+       <put-attribute name="title" value="Actualizar pedido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updatepedido.jsp" />  
+   </definition> 
+   
+   <!-- Usuarios -->
+   <definition name="usuarios" extends="base-definition">  
+       <put-attribute name="title" value="Usuarios" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/usuarios.jsp" />  
+   </definition> 
+   
+   <!-- Usuarios Actualizar-->
+   <definition name="usuarios/update" extends="base-definition">  
+       <put-attribute name="title" value="Usuarios" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updateusuario.jsp" />  
+   </definition> 
+ 
+ <!-- Etiquetas -->
+   <definition name="etiquetas" extends="base-definition">  
+       <put-attribute name="title" value="Etiquetas" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/etiquetas.jsp" />  
+   </definition> 
+   
+   <!-- Etiquetas /ADD -->
+   <definition name="etiquetas/add" extends="base-definition">  
+       <put-attribute name="title" value="Añadir etiqueta" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/add/etiqueta.jsp" />  
+   </definition> 
+   
+   <!-- Historico -->
+   <definition name="historico" extends="base-definition">  
+       <put-attribute name="title" value="Historico" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/historico.jsp" />  
+   </definition> 
+   
+   <!-- User definition -->
+   
+   <!--User  Index -->
+   <definition name="uprincipal" extends="base-definition">  
+       <put-attribute name="title" value="Bienvenido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/index.jsp" />  
+   </definition> 
+   
+    <!-- User Proveedores -->
+   <definition name="uproveedores" extends="base-definition">  
+       <put-attribute name="title" value="Proveedores" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/proveedores.jsp" />  
+   </definition> 
+   
+   <!-- User Proveedor -->
+   <definition name="uproveedor" extends="base-definition">  
+       <put-attribute name="title" value="Proveedor" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/proveedor.jsp" />  
+   </definition> 
+   
+   <!-- User Update Proveedor -->
+   <definition name="uproveedor/update" extends="base-definition">  
+       <put-attribute name="title" value="Actualizar proveedor" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updateproveedor.jsp" />  
+   </definition> 
+   
+    <!-- User Pedidos -->
+   <definition name="upedidos" extends="base-definition">  
+       <put-attribute name="title" value="Pedidos" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/pedidos.jsp" />  
+   </definition> 
+   
+    <!-- User Pedido -->
+   <definition name="upedido" extends="base-definition">  
+       <put-attribute name="title" value="Pedido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/pedido.jsp" />  
+   </definition> 
+   
+   <!-- User Update Pedido -->
+   <definition name="upedido/update" extends="base-definition">  
+       <put-attribute name="title" value="Actualizar pedido" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updatepedido.jsp" />  
+   </definition> 
+  
+   <!--User Seccion -->
+   <definition name="useccion" extends="base-definition">  
+       <put-attribute name="title" value="Seccion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/seccion.jsp" />  
+   </definition>
+   
+   <!--User update Seccion -->
+   <definition name="useccion/update" extends="base-definition">  
+       <put-attribute name="title" value="Actualizar seccion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/update/updateseccion.jsp" />  
+   </definition>
+   
+   <!--User Info Seccion -->
+    <definition name="useccion/info" extends="base-definition">  
+       <put-attribute name="title" value="Informacion de Seccion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/seccion_info.jsp" />  
+   </definition>
+   
+   <!-- UEtiquetas -->
+   <definition name="uetiquetas" extends="base-definition">  
+       <put-attribute name="title" value="Etiquetas" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/etiquetas.jsp" />  
+   </definition> 
+   
+   <!-- Etiquetas /ADD -->
+   <definition name="uetiquetas/add" extends="base-definition">  
+       <put-attribute name="title" value="Añadir etiqueta" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/add/etiqueta.jsp" />  
+   </definition> 
+   
+   <!--Alertas seccion -->
+   <definition name="ualertas" extends="base-definition">  
+       <put-attribute name="title" value="Alertas seccion" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/alertas.jsp" />  
+   </definition>
+   
+   <!--Historico referencias-->
+   <definition name="histReferencia" extends="base-definition">  
+       <put-attribute name="title" value="Historico referencia" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/detail/search/searchreferencia.jsp" />  
+   </definition>
+   
+   <!-- Errores-->
+   <definition name="error" extends="base-definition">  
+       <put-attribute name="title" value="ERROR!" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/userNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/error.jsp" />  
+   </definition>
+   
+   <!--Administrador-->
+   <definition name="admin" extends="base-definition">  
+       <put-attribute name="title" value="Main Administrador" />
+       <put-attribute name="header" value="/WEB-INF/tiles/template/adminNavBar.jsp"/>  
+       <put-attribute name="body" value="/WEB-INF/pages/bodys/admin.jsp" />  
+   </definition>
+  
+</tiles-definitions>

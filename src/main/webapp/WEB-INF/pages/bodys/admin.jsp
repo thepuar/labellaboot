@@ -1,0 +1,1 @@
+<h1>Estas en Admin y el valor de la sesion es ${valor}</h1>

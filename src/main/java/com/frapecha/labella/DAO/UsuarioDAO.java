@@ -9,6 +9,6 @@ import com.frapecha.labella.model.Usuario;
 @Repository
 public interface UsuarioDAO extends JpaRepository<Usuario, Long>,JpaSpecificationExecutor<Usuario>{
 
-	
+	public Usuario findByLdap(Integer integer);
 	
 }

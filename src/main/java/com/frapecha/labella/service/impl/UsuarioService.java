@@ -16,4 +16,6 @@ public interface UsuarioService {
 	
 	public long countAllUsuarios();
 	
+	public Usuario findByLdap(Integer ldap);
+	
 }

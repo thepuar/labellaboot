@@ -16,32 +16,38 @@ import com.frapecha.labella.model.Usuario;
 public class UsuarioServiceImpl implements UsuarioService{
 
 	@Autowired
-	UsuarioDAO UsuarioDAO;
+	UsuarioDAO usuarioDAO;
 	
 	@Override
 	public Usuario findById(Long id) {
 		
-		Optional<Usuario> opUsuario =  UsuarioDAO.findById(id);
+		Optional<Usuario> opUsuario =  usuarioDAO.findById(id);
 		if(opUsuario.isPresent())
 			return opUsuario.get();
 		else return null;
 	}
 	
 	public List<Usuario> findAll(){
-		return UsuarioDAO.findAll();
+		return usuarioDAO.findAll();
 	}
 	
 	public void saveUsuario(Usuario Usuario) {
-		UsuarioDAO.save(Usuario);
+		usuarioDAO.save(Usuario);
 	}
 	
 	public void deleteUsuario(Usuario Usuario) {
-		UsuarioDAO.delete(Usuario);
+		usuarioDAO.delete(Usuario);
 	}
 
 	@Override
 	public long countAllUsuarios() {
-		return UsuarioDAO.count();
+		return usuarioDAO.count();
+	}
+
+	@Override
+	public Usuario findByLdap(Integer ldap) {
+		// TODO Auto-generated method stub
+		return usuarioDAO.findByLdap(ldap);
 	}
 	
 	

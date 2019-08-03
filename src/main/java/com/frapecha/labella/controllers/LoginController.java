@@ -9,6 +9,8 @@ import com.frapecha.labella.model.Usuario;
 import com.frapecha.labella.service.impl.Cansino;
 import com.frapecha.labella.service.impl.LaBellaProv;
 import com.frapecha.labella.service.impl.UsuarioService;
+import com.frapecha.labella.util.UtilesFicheros;
+import com.frapecha.labella.validator.LoginValidator;
 
 import javax.annotation.PostConstruct;
 /**
@@ -46,6 +48,9 @@ public class LoginController {
 	 
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@Autowired
+	LoginValidator loginValidator;
 	
 	@PostConstruct
 	protected void iamAlive(){
@@ -91,51 +96,52 @@ public class LoginController {
     public ModelAndView login(@Valid @ModelAttribute("usuario") Usuario elusuario, BindingResult result) {
 
         ModelAndView mav = new ModelAndView();
+        
+        Usuario usuario = usuarioService.findByLdap(elusuario.getLdap());
 //        HUsuarioDAO husuario = new HUsuarioDAO();
 //        Usuario dbuser = husuario.getByLdap(elusuario.getLdap());
-
+        
         //Comprobar si es administrador
-//        if (dbuser == null) {
-//            UtilesFicheros uf = new UtilesFicheros();
-//            String value = uf.getPropertyByName("admin_name");
-//            Integer nameAdmin = Integer.parseInt(uf.getPropertyByName("admin_name"));
-//            String passAdmin = uf.getPropertyByName("pass_admin");
+        if (usuario == null) {
+            UtilesFicheros uf = new UtilesFicheros();
+            String value = uf.getPropertyByName("admin_name");
+            Integer nameAdmin = Integer.parseInt(uf.getPropertyByName("admin_name"));
+            String passAdmin = uf.getPropertyByName("pass_admin");
 //
-//            if (elusuario.getLdap().intValue() == nameAdmin && elusuario.getPassword().equals(passAdmin)) {
+            if (elusuario.getLdap().intValue() == nameAdmin && elusuario.getPassword().equals(passAdmin)) {
 //                //Es admin
 //                AdminController adminController = new AdminController();
 //                return adminController.main();
-//            }
-//        }
-//        LoginValidator loginValidator = new LoginValidator();
-//        loginValidator.validate(elusuario, result);
-//        if (result.hasErrors()) {
-//            //Hay errores
-//            mav.setViewName("login");
-//        } else {
-//            if (dbuser != null) {
+            }
+        }
+        loginValidator.validate(elusuario, result);
+        if (result.hasErrors()) {
+            //Hay errores
+            mav.setViewName("login");
+        } else {
+            if (usuario != null) {
 //
-//                System.out.println("Nombre db user :" + dbuser.getNombre());
-//                mav.addObject("usuario", dbuser);
-//                System.out.println("GoToPrincipal");
-//                mav.setViewName("redirect:/uprincipal");
-//            } else {
-//                Usuario testUser = new Usuario();
-//                testUser.setNombre("Administrador");
-//                testUser.setLdap(30000000);
-//                testUser.setApellidos("");
-//                testUser.setPassword("Passw0rd");
-//                husuario.insert(testUser);
-//                mav.setViewName("principal");
-//            }
-//        }
+                System.out.println("Nombre db user :" + usuario.getNombre());
+                mav.addObject("usuario", usuario);
+                System.out.println("GoToPrincipal");
+                mav.setViewName("redirect:/uprincipal");
+            } else {
+                Usuario testUser = new Usuario();
+                testUser.setNombre("Administrador");
+                testUser.setLdap(30000000);
+                testUser.setApellidos("");
+                testUser.setPassword("Passw0rd");
+                usuarioService.saveUsuario(testUser);
+                mav.setViewName("principal");
+            }
+        }
         return mav;
     }
 
     @RequestMapping("/logout")
     public ModelAndView logout(SessionStatus status) {
         ModelAndView mav = new ModelAndView("redirect:/");
-        //mav.addObject("usuario",null);
+        mav.addObject("usuario",null);
         status.setComplete();
 
         return mav;

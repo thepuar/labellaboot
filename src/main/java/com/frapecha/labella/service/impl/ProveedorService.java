@@ -10,10 +10,13 @@ public interface ProveedorService {
 	
 	public void saveProveedor(Proveedor Proveedor);
 	
+	public Proveedor updateProveedor(Proveedor proveedor);
+	
 	public void deleteProveedor(Proveedor Proveedor);
 	
 	public List<Proveedor> findAll();
 	
 	public long countAllProveedors();
 	
+	public Proveedor findByNumero(Integer numero);
 }

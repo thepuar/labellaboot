@@ -24,11 +24,11 @@ import org.hibernate.annotations.FetchMode;
  * @author thepuar
  */
 @Entity
-public class LaBellaModel {
+public class LaBella {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "id_bella")
@@ -38,16 +38,16 @@ public class LaBellaModel {
     @JoinColumn(name = "id_bella")
     private List<Proveedor> proveedores;
     
-    public LaBellaModel(){
+    public LaBella(){
         this.proveedores = new ArrayList<Proveedor>();
         this.tiendas = new ArrayList<Tienda>();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

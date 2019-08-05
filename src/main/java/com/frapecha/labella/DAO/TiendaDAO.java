@@ -10,5 +10,5 @@ import com.frapecha.labella.model.Tienda;
 public interface TiendaDAO extends JpaRepository<Tienda, Long>,JpaSpecificationExecutor<Tienda>{
 
 	
-	
+	public Tienda findByNumero(Integer numero);
 }

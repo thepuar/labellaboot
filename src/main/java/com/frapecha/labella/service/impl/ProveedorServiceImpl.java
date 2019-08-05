@@ -16,34 +16,42 @@ import com.frapecha.labella.model.Proveedor;
 public class ProveedorServiceImpl implements ProveedorService{
 
 	@Autowired
-	ProveedorDAO ProveedorDAO;
+	ProveedorDAO proveedorDAO;
 	
 	@Override
 	public Proveedor findById(Long id) {
 		
-		Optional<Proveedor> opProveedor =  ProveedorDAO.findById(id);
+		Optional<Proveedor> opProveedor =  proveedorDAO.findById(id);
 		if(opProveedor.isPresent())
 			return opProveedor.get();
 		else return null;
 	}
 	
 	public List<Proveedor> findAll(){
-		return ProveedorDAO.findAll();
+		return proveedorDAO.findAll();
 	}
 	
-	public void saveProveedor(Proveedor Proveedor) {
-		ProveedorDAO.save(Proveedor);
+	public void saveProveedor(Proveedor proveedor) {
+		proveedorDAO.save(proveedor);
 	}
 	
-	public void deleteProveedor(Proveedor Proveedor) {
-		ProveedorDAO.delete(Proveedor);
+	public Proveedor updateProveedor(Proveedor proveedor) {
+		return proveedorDAO.save(proveedor);
+	}
+	
+	public void deleteProveedor(Proveedor proveedor) {
+		proveedorDAO.delete(proveedor);
 	}
 
 	@Override
 	public long countAllProveedors() {
-		return ProveedorDAO.count();
+		return proveedorDAO.count();
 	}
 	
+	public Proveedor findByNumero(Integer numero) {
+		return proveedorDAO.findByNumero(numero);
+	}
+
 	
 	
 	

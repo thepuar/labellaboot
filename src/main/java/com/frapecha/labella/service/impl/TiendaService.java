@@ -8,12 +8,16 @@ public interface TiendaService {
 	
 	public Tienda findById(Long id);
 	
-	public void saveTienda(Tienda Tienda);
+	public void saveTienda(Tienda tienda);
 	
-	public void deleteTienda(Tienda Tienda);
+	public Tienda updateTienda(Tienda tienda);
+	
+	public void deleteTienda(Tienda tienda);
 	
 	public List<Tienda> findAll();
 	
 	public long countAllTiendas();
+	
+	public Tienda findByNumero(Integer numero);
 	
 }

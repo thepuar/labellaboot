@@ -6,8 +6,10 @@
 package com.frapecha.labella.controllers;
 
 import com.frapecha.labella.model.Usuario;
-import com.frapecha.labella.service.impl.Cansino;
-import com.frapecha.labella.service.impl.LaBellaProv;
+import com.frapecha.labella.service.impl.CansinoService;
+import com.frapecha.labella.service.impl.CansinoServiceImpl;
+import com.frapecha.labella.service.impl.LaBellaProvService;
+import com.frapecha.labella.service.impl.LaBellaProvServiceImpl;
 import com.frapecha.labella.service.impl.UsuarioService;
 import com.frapecha.labella.util.UtilesFicheros;
 import com.frapecha.labella.validator.LoginValidator;
@@ -52,6 +54,12 @@ public class LoginController {
 	@Autowired
 	LoginValidator loginValidator;
 	
+	@Autowired
+	LaBellaProvService laBellaProvService;
+	
+	@Autowired
+	CansinoService cansinoService;
+	
 	@PostConstruct
 	protected void iamAlive(){
 		
@@ -64,8 +72,7 @@ public class LoginController {
     public ModelAndView main() {
         
         logger.info("Hola");
-        LaBellaProv labella = new LaBellaProv();
-        labella.init();
+        laBellaProvService.init();
         System.out.println("Controller Login");
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("usuario", new Usuario());
@@ -76,7 +83,6 @@ public class LoginController {
         currentGroup.enumerate(lstThreads);
         boolean estaCansino = false;
         for (int i = 0; i < noThreads; i++) {
-            // System.out.println("Thread No:" + i + " = " + lstThreads[i].getName());
             if (lstThreads[i].getName().equals("Cansino")) {
                 estaCansino = true;
                 System.out.println("Cansino ya se estaba ejecutando");
@@ -84,8 +90,7 @@ public class LoginController {
 
         }
         if (!estaCansino) {
-            Cansino elCansino = new Cansino();
-            Thread hilo = new Thread(elCansino, "Cansino");
+            Thread hilo = new Thread(cansinoService, "Cansino");
             hilo.start();
             System.out.println("He creado a Cansino");
         }

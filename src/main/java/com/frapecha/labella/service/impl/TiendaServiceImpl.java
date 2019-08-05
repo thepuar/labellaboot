@@ -16,32 +16,43 @@ import com.frapecha.labella.model.Tienda;
 public class TiendaServiceImpl implements TiendaService{
 
 	@Autowired
-	TiendaDAO TiendaDAO;
+	TiendaDAO tiendaDAO;
 	
 	@Override
 	public Tienda findById(Long id) {
 		
-		Optional<Tienda> opTienda =  TiendaDAO.findById(id);
+		Optional<Tienda> opTienda =  tiendaDAO.findById(id);
 		if(opTienda.isPresent())
 			return opTienda.get();
 		else return null;
 	}
 	
 	public List<Tienda> findAll(){
-		return TiendaDAO.findAll();
+		return tiendaDAO.findAll();
 	}
 	
 	public void saveTienda(Tienda Tienda) {
-		TiendaDAO.save(Tienda);
+		tiendaDAO.save(Tienda);
 	}
 	
 	public void deleteTienda(Tienda Tienda) {
-		TiendaDAO.delete(Tienda);
+		tiendaDAO.delete(Tienda);
 	}
 
 	@Override
 	public long countAllTiendas() {
-		return TiendaDAO.count();
+		return tiendaDAO.count();
+	}
+
+	@Override
+	public Tienda findByNumero(Integer numero) {
+		return tiendaDAO.findByNumero(numero);
+	}
+
+	@Override
+	public Tienda updateTienda(Tienda tienda) {
+		return tiendaDAO.save(tienda);
+		
 	}
 	
 	

@@ -32,7 +32,7 @@ public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private Integer ldap;
     private String password;
@@ -59,7 +59,7 @@ public class Usuario {
     @JoinColumn(name="id_usuario")
     List<Pedido> pedidosDestacados;
     
-     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="id_usuario")
     private List<Historico> historico;
      
@@ -73,11 +73,11 @@ public class Usuario {
         referenciasDestacadas = new ArrayList<Integer>();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     

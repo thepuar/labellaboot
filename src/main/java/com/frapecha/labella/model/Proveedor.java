@@ -31,7 +31,7 @@ public class Proveedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private Integer numero;
     private Integer numSeccion;
@@ -46,7 +46,7 @@ public class Proveedor {
     private boolean estaEnReapro;
     private String diasEnReapro;
     
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "id_proveedor")
     private List<Pedido> pedidos;
@@ -61,11 +61,11 @@ public class Proveedor {
         this.historico = new ArrayList<Historico>();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

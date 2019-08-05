@@ -10,40 +10,54 @@ import org.springframework.stereotype.Service;
 
 import com.frapecha.labella.DAO.PedidoDAO;
 import com.frapecha.labella.model.Pedido;
+import com.frapecha.labella.model.Tienda;
 
 @Service
 @Transactional
 public class PedidoServiceImpl implements PedidoService{
 
 	@Autowired
-	PedidoDAO PedidoDAO;
+	PedidoDAO pedidoDAO;
 	
 	@Override
 	public Pedido findById(Long id) {
 		
-		Optional<Pedido> opPedido =  PedidoDAO.findById(id);
+		Optional<Pedido> opPedido =  pedidoDAO.findById(id);
 		if(opPedido.isPresent())
 			return opPedido.get();
 		else return null;
 	}
 	
 	public List<Pedido> findAll(){
-		return PedidoDAO.findAll();
+		return pedidoDAO.findAll();
 	}
 	
 	public void savePedido(Pedido Pedido) {
-		PedidoDAO.save(Pedido);
+		pedidoDAO.save(Pedido);
 	}
 	
 	public void deletePedido(Pedido Pedido) {
-		PedidoDAO.delete(Pedido);
+		pedidoDAO.delete(Pedido);
 	}
 
 	@Override
 	public long countAllPedidos() {
-		return PedidoDAO.count();
+		return pedidoDAO.count();
 	}
 	
+	public Pedido findByNumeropedido(Integer numero) {
+		return pedidoDAO.findByNumeropedido(numero);
+	}
+
+	@Override
+	public Pedido updatePedido(Pedido pedido) {
+		return pedidoDAO.save(pedido);
+	}
+
+	@Override
+	public List<Pedido> findBySeccionTiendaAndEnCurso(Tienda tienda, boolean enCurso) {
+		return pedidoDAO.findBySeccionTiendaAndEnCurso(tienda, enCurso);
+	}
 	
 	
 	

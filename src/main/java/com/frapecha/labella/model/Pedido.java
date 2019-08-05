@@ -36,7 +36,7 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private Integer numeropedido;
     private Integer numPalets;
     private Date fechaentrega;
@@ -64,7 +64,7 @@ public class Pedido {
     private Double importePC;
     private Double uds;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pedido")
     private List<LineaPedido> lineas;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -78,9 +78,9 @@ public class Pedido {
     @ManyToOne
     private Etiqueta etiquetaRM;
 
-    public Integer etiquetaId;
-    public Integer etiquetaIdOpecom;
-    public Integer etiquetaIdRM;
+    public Long etiquetaId;
+    public Long etiquetaIdOpecom;
+    public Long etiquetaIdRM;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pedido")
@@ -114,11 +114,11 @@ public class Pedido {
         return (int) difd + 1;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -416,7 +416,7 @@ public class Pedido {
         this.etiquetaRM = etiquetaRM;
     }
 
-    public Integer getEtiquetaId() {
+    public Long getEtiquetaId() {
         return etiquetaId;
     }
 
@@ -432,23 +432,23 @@ public class Pedido {
         return laetiqueta;
     }
 
-    public void setEtiquetaId(Integer etiquetaId) {
+    public void setEtiquetaId(Long etiquetaId) {
         this.etiquetaId = etiquetaId;
     }
 
-    public Integer getEtiquetaIdOpecom() {
+    public Long getEtiquetaIdOpecom() {
         return etiquetaIdOpecom;
     }
 
-    public void setEtiquetaIdOpecom(Integer etiquetaIdOpecom) {
+    public void setEtiquetaIdOpecom(Long etiquetaIdOpecom) {
         this.etiquetaIdOpecom = etiquetaIdOpecom;
     }
 
-    public Integer getEtiquetaIdRM() {
+    public Long getEtiquetaIdRM() {
         return etiquetaIdRM;
     }
 
-    public void setEtiquetaIdRM(Integer etiquetaIdRM) {
+    public void setEtiquetaIdRM(Long etiquetaIdRM) {
         this.etiquetaIdRM = etiquetaIdRM;
     }
 

@@ -30,16 +30,16 @@ public class Seccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nombre;
     private Integer numero;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "id_seccion")
     private List<Pedido> pedidos;
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name="SeccionUsuario", joinColumns={@JoinColumn(name="IdSeccion")},inverseJoinColumns={@JoinColumn(name="IdUsuario")})
     private List<Usuario> usuarios;
@@ -58,11 +58,11 @@ public class Seccion {
         this.pedidos = new ArrayList<Pedido>();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

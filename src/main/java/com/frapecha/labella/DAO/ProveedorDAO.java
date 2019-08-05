@@ -9,6 +9,6 @@ import com.frapecha.labella.model.Proveedor;
 @Repository
 public interface ProveedorDAO extends JpaRepository<Proveedor, Long>,JpaSpecificationExecutor<Proveedor>{
 
-	
+	public Proveedor findByNumero(Integer numero);
 	
 }

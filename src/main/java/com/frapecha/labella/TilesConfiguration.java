@@ -1,5 +1,7 @@
 package com.frapecha.labella;
 
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,35 +18,32 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
+@EnableWebMvc
 @Configuration
-public class TilesConfiguration extends WebMvcConfigurerAdapter {
+public class TilesConfiguration  {
 	  
 	
-	 @Bean(name = "viewResolver")
-	    public ViewResolver getViewResolver() {
-	        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-	 
-	        // TilesView 3
-	        viewResolver.setViewClass(TilesView.class);
-	 
-	        return viewResolver;
-	    }
-	 
-	    @Bean(name = "tilesConfigurer")
-	    public TilesConfigurer getTilesConfigurer() {
-	        TilesConfigurer tilesConfigurer = new TilesConfigurer();
-	 
-	        // TilesView 3
-	        tilesConfigurer.setDefinitions("/WEB-INF/tiles/tiles.xml");
-	 
-	        return tilesConfigurer;
-	    }
-	
+	@Bean
+	public UrlBasedViewResolver tilesViewResolver() {
+
+		UrlBasedViewResolver tilesViewResolver = new UrlBasedViewResolver();
+		tilesViewResolver.setViewClass(TilesView.class);
+		return tilesViewResolver;
+	}
+
+	@Bean
+	public TilesConfigurer tilesConfigurer() {
+
+		TilesConfigurer tconf = new TilesConfigurer();
+		tconf.setDefinitions(new String[] { "/WEB-INF/tiles/tiles.xml" });
+		return tconf;
+
+	}
 	    
-	    @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	         System.out.println("He añadido las rutas"); 
-	    }
+//	    @Override
+//	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//	         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//	         System.out.println("He añadido las rutas"); 
+//	    }
 	
 }

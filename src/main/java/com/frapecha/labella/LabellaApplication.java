@@ -7,16 +7,20 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-//@SpringBootApplication(scanBasePackages="com.frapecha.labella")
+@SpringBootApplication(scanBasePackages="com.frapecha.labella")
 @EntityScan("com.frapecha.labella.model")
 @ComponentScan(basePackages="com.frapecha.labella")
-@EnableAutoConfiguration
-public class LabellaApplication {
+//@EnableAutoConfiguration
+
+public class LabellaApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(LabellaApplication.class, args);
 	}
+	
+	
 
 	
 }

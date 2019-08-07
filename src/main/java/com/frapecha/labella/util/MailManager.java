@@ -26,6 +26,7 @@ import javax.mail.search.FlagTerm;
  */
 public class MailManager {
 
+	
     String downloademail;
     String downloadpassword;
     String downloadproperty_address;

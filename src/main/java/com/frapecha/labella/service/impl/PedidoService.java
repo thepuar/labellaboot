@@ -3,6 +3,8 @@ package com.frapecha.labella.service.impl;
 import java.util.List;
 
 import com.frapecha.labella.model.Pedido;
+import com.frapecha.labella.model.Proveedor;
+import com.frapecha.labella.model.Seccion;
 import com.frapecha.labella.model.Tienda;
 
 public interface PedidoService {
@@ -21,6 +23,13 @@ public interface PedidoService {
 	
 	public Pedido findByNumeropedido(Integer numero);
 	
+	public List<Pedido> findBySeccionAndEnCurso(Seccion seccion, boolean enCurso);
+	
 	public List<Pedido> findBySeccionTiendaAndEnCurso(Tienda tienda, boolean enCurso);
+	
+	public List<Pedido> findByLineasReferencia(Integer referencia);
+	
+	public List<Pedido> findByProveedorAndEnCurso(Proveedor proveedor, boolean enCurso);
+
 	
 }

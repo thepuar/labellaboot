@@ -20,4 +20,6 @@ public interface TiendaService {
 	
 	public Tienda findByNumero(Integer numero);
 	
+	public Tienda findByNombre(String nombre);
+	
 }

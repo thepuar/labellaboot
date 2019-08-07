@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.frapecha.labella.DAO.ProveedorDAO;
+import com.frapecha.labella.model.Pedido;
 import com.frapecha.labella.model.Proveedor;
 
 @Service
@@ -50,6 +51,16 @@ public class ProveedorServiceImpl implements ProveedorService{
 	
 	public Proveedor findByNumero(Integer numero) {
 		return proveedorDAO.findByNumero(numero);
+	}
+
+	@Override
+	public List<Proveedor> findByNumSeccion(Integer numSeccion) {
+		return proveedorDAO.findByNumSeccion(numSeccion);
+	}
+
+	@Override
+	public Proveedor findByPedidos(Pedido pedido) {
+		return proveedorDAO.findByPedidos(pedido);
 	}
 
 	

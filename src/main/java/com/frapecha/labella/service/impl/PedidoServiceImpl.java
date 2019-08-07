@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.frapecha.labella.DAO.PedidoDAO;
 import com.frapecha.labella.model.Pedido;
+import com.frapecha.labella.model.Proveedor;
+import com.frapecha.labella.model.Seccion;
 import com.frapecha.labella.model.Tienda;
 
 @Service
@@ -57,6 +59,21 @@ public class PedidoServiceImpl implements PedidoService{
 	@Override
 	public List<Pedido> findBySeccionTiendaAndEnCurso(Tienda tienda, boolean enCurso) {
 		return pedidoDAO.findBySeccionTiendaAndEnCurso(tienda, enCurso);
+	}
+
+	@Override
+	public List<Pedido> findByLineasReferencia(Integer referencia) {
+		return pedidoDAO.findByLineasReferencia(referencia);
+	}
+
+	@Override
+	public List<Pedido> findBySeccionAndEnCurso(Seccion seccion, boolean enCurso) {
+		return pedidoDAO.findBySeccionAndEnCurso(seccion, enCurso);
+	}
+
+	@Override
+	public List<Pedido> findByProveedorAndEnCurso(Proveedor proveedor, boolean enCurso) {
+		return pedidoDAO.findByProveedorAndEnCurso(proveedor, enCurso);
 	}
 	
 	

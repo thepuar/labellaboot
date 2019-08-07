@@ -54,6 +54,11 @@ public class TiendaServiceImpl implements TiendaService{
 		return tiendaDAO.save(tienda);
 		
 	}
+
+	@Override
+	public Tienda findByNombre(String nombre) {
+		return tiendaDAO.findByNombre(nombre);
+	}
 	
 	
 	

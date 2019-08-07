@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.frapecha.labella.util.UtilesFechas;
+
 /**
  *
  * @author thepuar
@@ -127,135 +129,135 @@ public class Seccion {
         elusuario.getSecciones().add(this);
     }
 
-//    public int getNumPedidosDia(int num) {
-//        int numpedidos = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (elpedido.isEnCurso()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                numpedidos++;
-//            }
-//        }
-//        return numpedidos;
-//    }
-//    public int getNumPedidosDiaSiTienda(int num) {
-//        int numpedidos = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (elpedido.isEnCurso()&&elpedido.isEntregaEnTienda()&&elpedido.isRevisado()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                numpedidos++;
-//            }
-//        }
-//        return numpedidos;
-//    }
-//    public int getNumPedidosDiaNoTienda(int num) {
-//        int numpedidos = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda()&&elpedido.isRevisado()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                numpedidos++;
-//            }
-//        }
-//        return numpedidos;
-//    }
+    public int getNumPedidosDia(int num) {
+        int numpedidos = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (elpedido.isEnCurso()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                numpedidos++;
+            }
+        }
+        return numpedidos;
+    }
+    public int getNumPedidosDiaSiTienda(int num) {
+        int numpedidos = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (elpedido.isEnCurso()&&elpedido.isEntregaEnTienda()&&elpedido.isRevisado()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                numpedidos++;
+            }
+        }
+        return numpedidos;
+    }
+    public int getNumPedidosDiaNoTienda(int num) {
+        int numpedidos = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda()&&elpedido.isRevisado()&&UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                numpedidos++;
+            }
+        }
+        return numpedidos;
+    }
     
     
     
-//    public int getNumPaletsDia(int num) {
-//        int numpalets = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                if(elpedido.getNumPalets()!=null&&elpedido.isEnCurso())
-//                numpalets += elpedido.getNumPalets();
-//            }
-//        }
-//        return numpalets;
-//    }
-//    public int getNumPaletsDiaATienda(int num) {
-//        int numpalets = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                if(elpedido.getNumPalets()!=null&&elpedido.isEntregaEnTienda()==true&&elpedido.isEnCurso())
-//                numpalets += elpedido.getNumPalets();
-//            }
-//        }
-//        return numpalets;
-//    }
-//    
-//    public int getNumPaletsDiaNoATienda(int num) {
-//        int numpalets = 0;
-//        for (Pedido elpedido : this.pedidos) {
-//            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
-//                if(elpedido.getNumPalets()!=null&&elpedido.isEntregaEnTienda()==false&&elpedido.isEnCurso())
-//                numpalets += elpedido.getNumPalets();
-//            }
-//        }
-//        return numpalets;
-//    }
-//    
-//    public int getUnidadesDia(int num){
-//        int unidades = 0;
-//        for(Pedido elpedido : this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso()){
-//                unidades += elpedido.getUds().intValue();
-//                }
-//            }
-//        }
-//        return unidades;
-//    }
-//    public int getUnidadesDiaATienda(int num){
-//        int unidades = 0;
-//        for(Pedido elpedido : this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso()&&elpedido.isEntregaEnTienda()){
-//                unidades += elpedido.getUds().intValue();
-//                }
-//            }
-//        }
-//        return unidades;
-//    }
-//    
-//    public int getUnidadesDiaNoATienda(int num){
-//        int unidades = 0;
-//        for(Pedido elpedido : this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda()){
-//                unidades += elpedido.getUds().intValue();
-//                }
-//            }
-//        }
-//        return unidades;
-//    }
-//    
-//    public double getImporteDia(int num){
-//        double unidades = 0;
-//        for(Pedido elpedido: this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso())
-//                    unidades += elpedido.getImporte();
-//            }
-//        }
-//        return unidades;
-//    }
-//    
-//    public double getImporteDiaATienda(int num){
-//        double unidades = 0;
-//        for(Pedido elpedido: this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso()&&elpedido.isEntregaEnTienda())
-//                    unidades += elpedido.getImporte();
-//            }
-//        }
-//        return unidades;
-//    }
-//    
-//    public double getImporteDiaNoATienda(int num){
-//        double unidades = 0;
-//        for(Pedido elpedido: this.pedidos){
-//            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                if(elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda())
-//                    unidades += elpedido.getImporte();
-//            }
-//        }
-//        return unidades;
-//    }
+    public int getNumPaletsDia(int num) {
+        int numpalets = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                if(elpedido.getNumPalets()!=null&&elpedido.isEnCurso())
+                numpalets += elpedido.getNumPalets();
+            }
+        }
+        return numpalets;
+    }
+    public int getNumPaletsDiaATienda(int num) {
+        int numpalets = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                if(elpedido.getNumPalets()!=null&&elpedido.isEntregaEnTienda()==true&&elpedido.isEnCurso())
+                numpalets += elpedido.getNumPalets();
+            }
+        }
+        return numpalets;
+    }
+    
+    public int getNumPaletsDiaNoATienda(int num) {
+        int numpalets = 0;
+        for (Pedido elpedido : this.pedidos) {
+            if (UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())) {
+                if(elpedido.getNumPalets()!=null&&elpedido.isEntregaEnTienda()==false&&elpedido.isEnCurso())
+                numpalets += elpedido.getNumPalets();
+            }
+        }
+        return numpalets;
+    }
+    
+    public int getUnidadesDia(int num){
+        int unidades = 0;
+        for(Pedido elpedido : this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso()){
+                unidades += elpedido.getUds().intValue();
+                }
+            }
+        }
+        return unidades;
+    }
+    public int getUnidadesDiaATienda(int num){
+        int unidades = 0;
+        for(Pedido elpedido : this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso()&&elpedido.isEntregaEnTienda()){
+                unidades += elpedido.getUds().intValue();
+                }
+            }
+        }
+        return unidades;
+    }
+    
+    public int getUnidadesDiaNoATienda(int num){
+        int unidades = 0;
+        for(Pedido elpedido : this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda()){
+                unidades += elpedido.getUds().intValue();
+                }
+            }
+        }
+        return unidades;
+    }
+    
+    public double getImporteDia(int num){
+        double unidades = 0;
+        for(Pedido elpedido: this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso())
+                    unidades += elpedido.getImporte();
+            }
+        }
+        return unidades;
+    }
+    
+    public double getImporteDiaATienda(int num){
+        double unidades = 0;
+        for(Pedido elpedido: this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso()&&elpedido.isEntregaEnTienda())
+                    unidades += elpedido.getImporte();
+            }
+        }
+        return unidades;
+    }
+    
+    public double getImporteDiaNoATienda(int num){
+        double unidades = 0;
+        for(Pedido elpedido: this.pedidos){
+            if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                if(elpedido.isEnCurso()&&!elpedido.isEntregaEnTienda())
+                    unidades += elpedido.getImporte();
+            }
+        }
+        return unidades;
+    }
     
     
     

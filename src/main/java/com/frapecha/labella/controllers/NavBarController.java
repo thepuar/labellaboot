@@ -183,9 +183,10 @@ public class NavBarController {
     public ModelAndView gotoUPedidos(@ModelAttribute("usuario") Usuario elusuario) {
 //        HPedido hpedido = new HPedido();
         List<Pedido> listPedidos = new ArrayList<>();
-//        for (Seccion laseccion : elusuario.getSecciones()) {
+        for (Seccion laseccion : elusuario.getSecciones()) {
 //            listPedidos.addAll(hpedido.selectAllEnCursoByIdSeccion(laseccion.getId()));
-//        }
+        	listPedidos.addAll(pedidoService.findBySeccionAndEnCurso(laseccion, true));
+        }
         ModelAndView mav = new ModelAndView();
         mav.addObject("pedidos", listPedidos);
         mav.setViewName("upedidos");
@@ -196,35 +197,35 @@ public class NavBarController {
     @RequestMapping("/uprincipal")
     public ModelAndView gotoIndex(@ModelAttribute("usuario") Usuario elusuario) {
         ModelAndView mav = new ModelAndView("uprincipal");
-//        HTienda htienda = new HTienda();
-//        HSeccion hseccion = new HSeccion();
-//        Tienda latienda = elusuario.getSecciones().get(0).getTienda();
+        Tienda latienda = elusuario.getSecciones().get(0).getTienda();
 //        latienda = htienda.selectByIdAndSecciones(latienda.getId());
-//        List<Seccion> lseccion = new ArrayList<>();
-//        Map<Integer, Seccion> mapseccion = new HashMap<Integer, Seccion>();
-//
-//        int pedidosTiendaVivos = 0;
-//        int pedidosTiendaRevisados = 0;
-//        for (Seccion laseccion : latienda.getSecciones()) {
-//            if (laseccion.getNumero() < 14) {
-//                mapseccion.put(laseccion.getNumero(), hseccion.getByIdAndPedidos(laseccion.getId()));
-//
-//            }
-//        }
-//
-//        for (int i = 1; i < 14; i++) {
-//            lseccion.add(mapseccion.get(i));
-//            pedidosTiendaVivos += mapseccion.get(i).getNumPedidosVivos();
-//            pedidosTiendaRevisados += mapseccion.get(i).getNumPedidosVivosRevisados();
-//        }
-//        Calendar cal = new GregorianCalendar();
-//        cal.setTime(latienda.getFechaLPRE());
-//        cal.add(Calendar.MONTH,-1);
-//        latienda.setFechaLPRE(cal.getTime());
-//        mav.addObject("tienda", latienda);
-//        mav.addObject("pedidosVivos", pedidosTiendaVivos);
-//        mav.addObject("pedidosRevisados", pedidosTiendaRevisados);
-//        mav.addObject("secciones", lseccion);
+        latienda= tiendaService.findByNumero(elusuario.getSecciones().get(0).getTienda().getNumero());
+        List<Seccion> lseccion = new ArrayList<>();
+        Map<Integer, Seccion> mapseccion = new HashMap<Integer, Seccion>();
+
+        int pedidosTiendaVivos = 0;
+        int pedidosTiendaRevisados = 0;
+        for (Seccion laseccion : latienda.getSecciones()) {
+            if (laseccion.getNumero() < 14) {
+                //mapseccion.put(laseccion.getNumero(), hseccion.getByIdAndPedidos(laseccion.getId()));
+            	mapseccion.put(laseccion.getNumero(), seccionService.findById(laseccion.getId()));
+
+            }
+        }
+
+        for (int i = 1; i < 14; i++) {
+            lseccion.add(mapseccion.get(i));
+            pedidosTiendaVivos += mapseccion.get(i).getNumPedidosVivos();
+            pedidosTiendaRevisados += mapseccion.get(i).getNumPedidosVivosRevisados();
+        }
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(latienda.getFechaLPRE());
+        cal.add(Calendar.MONTH,-1);
+        latienda.setFechaLPRE(cal.getTime());
+        mav.addObject("tienda", latienda);
+        mav.addObject("pedidosVivos", pedidosTiendaVivos);
+        mav.addObject("pedidosRevisados", pedidosTiendaRevisados);
+        mav.addObject("secciones", lseccion);
         return mav;
     }
 
@@ -233,31 +234,33 @@ public class NavBarController {
         ModelAndView mav = new ModelAndView();
 //        HPedido hpedido = new HPedido();
 //        HLineaPedido hlineaPedido = new HLineaPedido();
-//        List<Pedido> resultPedidos;//Que contienen esa referencia
-//        Integer numBuscar;
-//        try {
-//            numBuscar = Integer.parseInt(buscar);
+        List<Pedido> resultPedidos;//Que contienen esa referencia
+        Integer numBuscar;
+        try {
+            numBuscar = Integer.parseInt(buscar);
 //            Pedido elpedido = hpedido.getByNumPedido(numBuscar);
-//            if (elpedido != null) {
-//                mav.setViewName("redirect:/upedido/" + elpedido.getId());
-//                return mav;
-//            } else {
-//                mav.addObject("mensaje", "No se ha encontrado ningún pedido con ese número.");
-//                //comprobar si es una referencia.
+            Pedido elpedido = pedidoService.findByNumeropedido(numBuscar);
+            if (elpedido != null) {
+                mav.setViewName("redirect:/upedido/" + elpedido.getId());
+                return mav;
+            } else {
+                mav.addObject("mensaje", "No se ha encontrado ningún pedido con ese número.");
+                //comprobar si es una referencia.
 //                resultPedidos =  hpedido.selectAllPedidosByReferencia(numBuscar);
-//                if (resultPedidos.size() > 0) {
-//                    //Es una referencia y hay resultados
-//                    mav.setViewName("histReferencia");
-//                    mav.addObject("pedidos", resultPedidos);
-//                    mav.addObject("referencia",numBuscar);
-//                    return mav;
-//                }else{
-//                mav.addObject("mensaje", "No se ha encontrado ningún pedido con esa referencia.");
-//                }
-//            }
-//        } catch (NumberFormatException ex) {
-//
-//        }
+                resultPedidos = pedidoService.findByLineasReferencia(numBuscar);
+                if (resultPedidos.size() > 0) {
+                    //Es una referencia y hay resultados
+                    mav.setViewName("histReferencia");
+                    mav.addObject("pedidos", resultPedidos);
+                    mav.addObject("referencia",numBuscar);
+                    return mav;
+                }else{
+                mav.addObject("mensaje", "No se ha encontrado ningún pedido con esa referencia.");
+                }
+            }
+        } catch (NumberFormatException ex) {
+
+        }
         mav.setViewName("error");
         
 

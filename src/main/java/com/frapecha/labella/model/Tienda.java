@@ -20,6 +20,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.frapecha.labella.util.UtilesFechas;
+
 /**
  *
  * @author thepuar
@@ -131,17 +133,17 @@ public class Tienda {
         return valor;
     }
     
-//    public int getNumPedidosDia(int num){
-//        int numpedidos = 0;
-//        for(Seccion laseccion : this.secciones){
-//                for(Pedido elpedido : laseccion.getPedidos()){
-//                    if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
-//                        numpedidos++;
-//                    }
-//                }
-//        }
-//        return numpedidos;
-//    }
+    public int getNumPedidosDia(int num){
+        int numpedidos = 0;
+        for(Seccion laseccion : this.secciones){
+                for(Pedido elpedido : laseccion.getPedidos()){
+                    if(UtilesFechas.esDiaHoyMasN(num, elpedido.getFechaentregaReal())){
+                        numpedidos++;
+                    }
+                }
+        }
+        return numpedidos;
+    }
     
      public double getUdsPedidosPorSeccion(int num){
         double valor=0.0;

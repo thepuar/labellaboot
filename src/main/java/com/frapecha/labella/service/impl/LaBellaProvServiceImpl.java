@@ -196,14 +196,18 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 						// Asociando los pedidos a las secciones correspondientes
 
 						latienda.getSeccionByNum(preprov.getNumSeccion()).addPedido(preped);
-						preped.setProveedor(preprov);
+						Seccion seccionAux = latienda.getSeccionByNum(preprov.getNumSeccion());
+						seccionAux.addPedido(preped);
+						
 
 						// hproveedor.getByNumProveedorAndPedidos(preprov.getNumero()).addPedido(preped);
-						Historico historicoped = new Historico("Ped", "Info", preped.getNumeropedido().toString(),
-								"Creado", 0);
+						Historico historicoped = new Historico("Ped", "Info", preped.getNumeropedido().toString(),	"Creado", 0);
 						preped.addHistorico(historicoped);
 						pedidoService.savePedido(preped);
+						preped.setProveedor(preprov);
+						
 					}
+					proveedorService.updateProveedor(preprov);
 				}
 			}
 			System.out.println("Empiezo a actualizar a la bella");

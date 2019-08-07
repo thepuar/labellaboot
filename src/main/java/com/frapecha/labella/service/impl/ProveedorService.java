@@ -2,6 +2,7 @@ package com.frapecha.labella.service.impl;
 
 import java.util.List;
 
+import com.frapecha.labella.model.Pedido;
 import com.frapecha.labella.model.Proveedor;
 
 public interface ProveedorService {
@@ -19,4 +20,9 @@ public interface ProveedorService {
 	public long countAllProveedors();
 	
 	public Proveedor findByNumero(Integer numero);
+	
+	public List<Proveedor> findByNumSeccion(Integer numSeccion);
+	
+	public Proveedor findByPedidos(Pedido pedido);
+
 }

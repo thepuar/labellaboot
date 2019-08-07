@@ -11,4 +11,6 @@ public interface TiendaDAO extends JpaRepository<Tienda, Long>,JpaSpecificationE
 
 	
 	public Tienda findByNumero(Integer numero);
+	
+	public Tienda findByNombre(String nombre);
 }

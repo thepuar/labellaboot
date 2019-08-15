@@ -3,6 +3,7 @@ package com.frapecha.labella.service.impl;
 import java.util.List;
 
 import com.frapecha.labella.model.LaBella;
+import com.frapecha.labella.model.Proveedor;
 
 public interface LaBellaService {
 
@@ -17,5 +18,6 @@ public interface LaBellaService {
 	public List<LaBella> findAll();
 
 	public long countAllLaBellas();
+	
 
 }

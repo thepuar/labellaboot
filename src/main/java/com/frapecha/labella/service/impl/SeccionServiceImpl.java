@@ -10,42 +10,44 @@ import org.springframework.stereotype.Service;
 
 import com.frapecha.labella.DAO.SeccionDAO;
 import com.frapecha.labella.model.Seccion;
+import com.frapecha.labella.model.Tienda;
 
 @Service
 @Transactional
 public class SeccionServiceImpl implements SeccionService{
 
 	@Autowired
-	SeccionDAO SeccionDAO;
+	SeccionDAO seccionDAO;
 	
 	@Override
 	public Seccion findById(Long id) {
 		
-		Optional<Seccion> opSeccion =  SeccionDAO.findById(id);
+		Optional<Seccion> opSeccion =  seccionDAO.findById(id);
 		if(opSeccion.isPresent())
 			return opSeccion.get();
 		else return null;
 	}
 	
 	public List<Seccion> findAll(){
-		return SeccionDAO.findAll();
+		return seccionDAO.findAll();
 	}
 	
 	public void saveSeccion(Seccion Seccion) {
-		SeccionDAO.save(Seccion);
+		seccionDAO.save(Seccion);
 	}
 	
 	public void deleteSeccion(Seccion Seccion) {
-		SeccionDAO.delete(Seccion);
+		seccionDAO.delete(Seccion);
 	}
 
 	@Override
 	public long countAllSeccions() {
-		return SeccionDAO.count();
+		return seccionDAO.count();
 	}
-	
-	
-	
-	
+
+	@Override
+	public Seccion findByTiendaAndNumero(Tienda tienda, Integer numero) {
+		return seccionDAO.findByTiendaAndNumero(tienda, numero);
+	}
 
 }

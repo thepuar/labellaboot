@@ -64,7 +64,7 @@ public class Pedido {
     private Double importePC;
     private Double uds;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pedido")
     private List<LineaPedido> lineas;
     @ManyToOne(cascade = CascadeType.ALL)

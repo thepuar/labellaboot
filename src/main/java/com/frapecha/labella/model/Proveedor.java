@@ -46,7 +46,7 @@ public class Proveedor {
     private boolean estaEnReapro;
     private String diasEnReapro;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "id_proveedor")
     private List<Pedido> pedidos;

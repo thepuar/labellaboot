@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.frapecha.labella.DAO.LaBellaDAO;
 import com.frapecha.labella.model.LaBella;
+import com.frapecha.labella.model.Proveedor;
 
 @Service
 public class LaBellaServiceImpl implements LaBellaService {
@@ -49,5 +50,6 @@ public class LaBellaServiceImpl implements LaBellaService {
 		return laBellaDAO.save(laBella);
 
 	}
+	
 
 }

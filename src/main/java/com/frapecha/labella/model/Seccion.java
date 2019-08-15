@@ -41,7 +41,7 @@ public class Seccion {
     private List<Pedido> pedidos;
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name="SeccionUsuario", joinColumns={@JoinColumn(name="IdSeccion")},inverseJoinColumns={@JoinColumn(name="IdUsuario")})
     private List<Usuario> usuarios;

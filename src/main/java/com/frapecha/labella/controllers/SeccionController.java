@@ -40,7 +40,34 @@ public class SeccionController {
 	@Autowired
 	SeccionService seccionService;
 	
-	
+	  @RequestMapping("/useccion/info/{id}")
+	    public ModelAndView gotoInfoUSeccion(@PathVariable(value = "id") Long id) {
+	        ModelAndView mav = new ModelAndView("useccion/info");
+	    	Seccion laseccion = seccionService.findById(id);
+
+	        mav.addObject("seccion", laseccion);
+	        return mav;
+	    }
+	    
+	    
+	    @RequestMapping(value = "/useccion/update/{id}", method = RequestMethod.POST)
+	    public ModelAndView UpdateSeccion(@Valid @ModelAttribute("seccion") Seccion laseccion, @PathVariable(value = "id") Long id, BindingResult result, Model model) {
+	        ModelAndView mav = new ModelAndView();
+	    	Seccion secciondb = seccionService.findById(id);
+	        mav.addObject("seccionInfo", secciondb);
+	        seccionValidator.validate(laseccion, result);
+	        if (result.hasErrors()) {
+	            mav.setViewName("useccion/update");
+	            mav.addObject(result.getModel());
+	            return mav;
+	        } else {
+	            secciondb.setEmail(laseccion.getEmail());
+	            seccionService.saveSeccion(secciondb);
+	            mav.setViewName("redirect:/useccion/info/" + secciondb.getId());
+	            return mav;
+	        }
+	    }
+
 
     @RequestMapping("/seccion/{id}")
     public ModelAndView gotoDetailSeccion(@PathVariable(value = "id") Long id) {
@@ -229,16 +256,8 @@ public class SeccionController {
         return mav;
     }
 
-    @RequestMapping("/useccion/info/{id}")
-    public ModelAndView gotoInfoUSeccion(@PathVariable(value = "id") Long id) {
-        ModelAndView mav = new ModelAndView("useccion/info");
-//        HSeccion hseccion = new HSeccion();
-//        Seccion laseccion = hseccion.getByIdAndUsuarios(id);
-    	Seccion laseccion = seccionService.findById(id);
-
-        mav.addObject("seccion", laseccion);
-        return mav;
-    }
+  
+    
 
     @RequestMapping(value = "/useccion/update/{id}", method = RequestMethod.GET)
     public ModelAndView gotoUpdateUSeccion(@PathVariable(value = "id") Long id) {
@@ -252,25 +271,6 @@ public class SeccionController {
         return mav;
     }
 
-    @RequestMapping(value = "/useccion/update/{id}", method = RequestMethod.POST)
-    public ModelAndView UpdateSeccion(@Valid @ModelAttribute("seccion") Seccion laseccion, @PathVariable(value = "id") Long id, BindingResult result, Model model) {
-        ModelAndView mav = new ModelAndView();
-//        HSeccion hseccion = new HSeccion();
-//        Seccion secciondb = (Seccion) hseccion.selectById(id, Seccion.class);
-    	Seccion secciondb = seccionService.findById(id);
-        mav.addObject("seccionInfo", secciondb);
-        seccionValidator.validate(laseccion, result);
-        if (result.hasErrors()) {
-            mav.setViewName("useccion/update");
-            mav.addObject(result.getModel());
-            return mav;
-        } else {
-            secciondb.setEmail(laseccion.getEmail());
-//            hseccion.update(secciondb);
-            seccionService.saveSeccion(secciondb);
-            mav.setViewName("redirect:/useccion/info/" + secciondb.getId());
-            return mav;
-        }
-    }
+   
 
 }

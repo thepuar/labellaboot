@@ -21,7 +21,6 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @EnableWebMvc
 @Configuration
 public class TilesConfiguration  {
-	  
 	
 	@Bean
 	public UrlBasedViewResolver tilesViewResolver() {
@@ -39,11 +38,4 @@ public class TilesConfiguration  {
 		return tconf;
 
 	}
-	    
-//	    @Override
-//	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//	         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-//	         System.out.println("He añadido las rutas"); 
-//	    }
-	
 }

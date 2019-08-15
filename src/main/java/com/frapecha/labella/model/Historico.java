@@ -7,10 +7,13 @@ package com.frapecha.labella.model;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -29,6 +32,11 @@ public class Historico {
     private String dato;
     private Date fecha;
     private String descripcion;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Proveedor proveedor;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Pedido pedido;
     
     public Historico(){
         
@@ -100,6 +108,22 @@ public class Historico {
     public void setDato(String dato) {
         this.dato = dato;
     }
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
     
     
     

@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -23,10 +24,12 @@ import com.frapecha.labella.fichero.model.LineaFiFranco;
 import com.frapecha.labella.fichero.model.LineaFiUsuario;
 import com.frapecha.labella.fichero.model.LineaImportePalet;
 import com.frapecha.labella.fichero.model.LineaLPRE;
+import com.frapecha.labella.service.impl.LaBellaProvServiceImpl;
 import com.frapecha.labella.util.UtilesFicheros;
 
 public class UtilesFicheros {
 
+	private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(UtilesFicheros.class);
 
 private Properties propSistema;
 
@@ -117,7 +120,7 @@ public UtilesFicheros() {
     InputStream input = getClass().getResourceAsStream("/sistema.properties");
     try {
         this.propSistema.load(input);
-    } catch (IOException e) {
+    } catch (Exception e) {
         System.out.println("ERROR construyendo UtilesFicheros - " + e.getLocalizedMessage());
     }
 }
@@ -253,7 +256,7 @@ public LPRE CargaLPRE(String nombre, int opcion) {
 
             num_referencias++;
             ellpre.getListalineas().add(lineaLPRE);
-            System.out.println(num_referencias + "/" + numFilas + " Seccion: " + seccion + " - Referencia: " + referencia + " - Designacion: " + designacion + "PC: " + pc);
+//            log.info(num_referencias + "/" + numFilas + " Seccion: " + seccion + " - Referencia: " + referencia + " - Designacion: " + designacion + "PC: " + pc);
         }
         System.out.println("##LPRE TERMINADA##");
 

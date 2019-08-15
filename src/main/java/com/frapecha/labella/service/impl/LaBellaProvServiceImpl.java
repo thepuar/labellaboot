@@ -21,6 +21,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,7 +52,13 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 	PedidoService pedidoService;
 	
 	@Autowired
+	LineaPedidoService lineaPedidoService;
+	
+	@Autowired
 	HistoricoService historicoService;
+	
+	private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(LaBellaProvServiceImpl.class);
+
 
 	private LaBella laBella;
 //    private HLaBella hlabella;
@@ -56,10 +66,10 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 	public void init() {
 		laBella = new LaBella();
 		if (laBellaService.countAllLaBellas() == 0) {
-			System.out.println("Se ha creado a LaBella");
+			log.info("Se ha creado a LaBella");
 			laBellaService.saveLaBella(laBella);
 		} else
-			System.out.println("Ya existia LaBella");
+			log.info("LaBella ya existia");
 	}
 
 	public void cargarLPREFromDB() {
@@ -170,7 +180,7 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 		int proveedorexiste = 0;
 		int proveedorcreado = 0;
 		if (latienda == null) {
-			System.out.println("#Paso 0A .- La tienda no existe, la creo");
+			log.info("#Paso 0A .- La tienda no existe, la creo");
 			latienda = new Tienda();
 			latienda = this.crearTienda(ellpre.getNombreTienda(), ellpre.getNumero_tienda());
 			latienda.setFechaLPRE(ellpre.getFechafichero());
@@ -181,35 +191,108 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 //            hlabella = new HLaBella();
 //            this.labella = hlabella.selectByIdAndProveedoresAndPedidos();
 			this.laBella = laBellaService.findById(1L);
+			List<Proveedor> lprovBella = new ArrayList<Proveedor>();
 			for (Proveedor preprov : lpreprov) {
 
 				if (proveedorService.findByNumero(preprov.getNumero()) == null) {
 					// El proveedor no existe, lo añado.
+					Proveedor proveedor = new Proveedor();
+					proveedor.setNombre(preprov.getNombre());
+					proveedor.setNumero(preprov.getNumero());
+					proveedor.setEstaEnReapro(true);
+					proveedor.setNumSeccion(preprov.getNumSeccion());
+					proveedor.setPedidos(new ArrayList<>());
+					proveedor.setHistorico(new ArrayList<>());
+					proveedorService.saveProveedor(proveedor);
+					
+					
 					List<Pedido> listapedidos = preprov.getPedidos();
-					preprov.setPedidos(null);
-					Historico historicoprov = new Historico("PROV", "Info", preprov.getNumero().toString(), "Creado",
+					//preprov.setPedidos(null);
+					Historico historicoprov = new Historico("PROV", "Info", proveedor.getNumero().toString(), "Creado",
 							0);
-					preprov.addHistorico(historicoprov);
-					proveedorService.saveProveedor(preprov);
-					laBella.addProveedor(preprov);
+					historicoService.saveHistorico(historicoprov);
+					historicoprov.setProveedor(proveedor);
+					historicoService.saveHistorico(historicoprov);
+				
+					proveedor.getHistorico().add(historicoprov);
+					proveedorService.updateProveedor(proveedor);
+					
+					log.info("Proveedor "+proveedor.getNumero()+" - "+proveedor.getNombre()+" Creado");
+//					preprov.addHistorico(historicoprov);
+//					proveedorService.saveProveedor(preprov);
+					
+				//	laBella.addProveedor(preprov);
+					lprovBella.add(proveedor);
+					
+					this.laBella = laBellaService.findById(1L);
+					
+					Seccion seccion = seccionService.findByTiendaAndNumero(latienda, proveedor.getNumSeccion());
+					Pedido pedido = null;
 					for (Pedido preped : listapedidos) {
 						// Asociando los pedidos a las secciones correspondientes
-
-						latienda.getSeccionByNum(preprov.getNumSeccion()).addPedido(preped);
-						Seccion seccionAux = latienda.getSeccionByNum(preprov.getNumSeccion());
-						seccionAux.addPedido(preped);
+						pedido = new Pedido();
+						pedido.setNumeropedido(preped.getNumeropedido());
+						pedido.setTipoPedido(preped.getTipoPedido());
+						pedido.setAvisarAlLlegar(preped.isAvisarAlLlegar());
+						pedido.setDestacado(preped.isDestacado());
+						pedido.setEnCurso(preped.isEnCurso());
+						pedido.setEntregaEnTienda(preped.isEntregaEnTienda());
+						pedido.setEsReapro(preped.isEsReapro());
+						pedido.setFechaencontrado(preped.getFechaencontrado());
+						
+						pedido.setFechaentregaReal(preped.getFechaentregaReal());
+						pedido.setHistorico(preped.getHistorico());
+						pedido.setImporte(preped.getImporte());
+						pedido.setImportePC(preped.getImportePC());
+						pedido.setLlegaAFranco(preped.isLlegaAFranco());
+						pedido.setPendienteAnular(preped.isPendienteAnular());
+						pedido.setRetraso(preped.isRetraso());
+						pedidoService.savePedido(pedido);
+						
+						//Asociar pedido a seccion y a proveedor
+						pedido.setProveedor(proveedor);
+						pedido.setSeccion(seccion);
+						pedidoService.updatePedido(pedido);
+						
+						seccion.getPedidos().add(pedido);
+						seccionService.saveSeccion(seccion);
+						
+						proveedor.addPedido(pedido);
+						proveedorService.updateProveedor(proveedor);
+						pedido.setFechaentrega(preped.getFechaentrega());
+						pedidoService.updatePedido(pedido);
+						
+						pedido.setLineas(new ArrayList<>());
+						for(LineaPedido lineaPedido : preped.getLineas()) {
+							lineaPedidoService.saveLineaPedido(lineaPedido);
+							pedido.getLineas().add(lineaPedido);
+							log.info("    LineaPedido "+lineaPedido.getDesignacion()+" - Uds "+lineaPedido.getEncurso());
+						}
+						pedidoService.updatePedido(pedido);
+						
+//						latienda.getSeccionByNum(preprov.getNumSeccion()).addPedido(preped);
+//						Seccion seccionAux = latienda.getSeccionByNum(preprov.getNumSeccion());
+//						seccionAux.addPedido(preped);
 						
 
 						// hproveedor.getByNumProveedorAndPedidos(preprov.getNumero()).addPedido(preped);
-						Historico historicoped = new Historico("Ped", "Info", preped.getNumeropedido().toString(),	"Creado", 0);
-						preped.addHistorico(historicoped);
-						pedidoService.savePedido(preped);
-						preped.setProveedor(preprov);
-						
+						Historico historicoped = new Historico("Ped", "Info", pedido.getNumeropedido().toString(),	"Creado", 0);
+						historicoService.saveHistorico(historicoped);
+						historicoped.setPedido(pedido);
+						historicoService.saveHistorico(historicoped);
+						pedido.getHistorico().add(historicoped);
+//						pedido.addHistorico(historicoped);
+						pedidoService.savePedido(pedido);
+//						preped.setProveedor(preprov);
+						log.info("  Pedido "+pedido.getNumeropedido()+" Creado");
 					}
-					proveedorService.updateProveedor(preprov);
+//					proveedorService.updateProveedor(preprov);
 				}
+				
 			}
+			log.info("Añadiendo proveedores a laBella");
+			laBella.getProveedores().addAll(lpreprov);
+			laBellaService.updateLaBella(laBella);
 			System.out.println("Empiezo a actualizar a la bella");
 			laBellaService.updateLaBella(laBella);
 //            // this.hlabella.update(this.labella);
@@ -242,6 +325,7 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 					preprov.addHistorico(historicoprov);
 //                    hproveedor.insert(preprov);
 					proveedorService.saveProveedor(preprov);
+				
 //
 					for (Pedido preped : listapedidos) {
 						// Asociando los pedidos a las secciones correspondientes
@@ -258,10 +342,12 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 								"Creado", 0);
 						preped.addHistorico(historicoped);
 						preped.setNumPalets(1);
-						preped.setProveedor(null);
-						preped.setSeccion(null);
+						
+						preped.setSeccion(laseccion);
 						pedidoService.savePedido(preped);
 						laseccion.addPedido(preped);
+						proveedorService.updateProveedor(prov);
+						preped.setProveedor(prov);
 						prov.addPedido(preped);
 						proveedorService.updateProveedor(prov);
 						seccionService.saveSeccion(laseccion);

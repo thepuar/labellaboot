@@ -5,7 +5,6 @@
  */
 package com.frapecha.labella.controllers;
 
-import com.frapecha.labella.model.Etiqueta;
 import com.frapecha.labella.model.Historico;
 import com.frapecha.labella.model.LineaPedido;
 import com.frapecha.labella.model.Pedido;

@@ -172,6 +172,10 @@ public class NavBarController {
 //        for (Seccion laseccion : elusuario.getSecciones()) {
 //            listProv.addAll(hprov.selectByNumSeccionAndPedidosVivos(laseccion.getNumero()));
 //        }
+        for(Seccion seccion : elusuario.getSecciones()) {
+        	listProv.addAll(proveedorService.findByNumSeccion(seccion.getNumero()));
+        }
+        
         ModelAndView mav = new ModelAndView();
         mav.addObject("proveedores", listProv);
         mav.setViewName("uproveedores");

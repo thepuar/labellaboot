@@ -10,6 +10,7 @@ import com.frapecha.labella.model.Pedido;
 import com.frapecha.labella.model.Proveedor;
 import com.frapecha.labella.model.Usuario;
 import com.frapecha.labella.service.impl.EtiquetaService;
+import com.frapecha.labella.service.impl.LaBellaProvServiceImpl;
 import com.frapecha.labella.service.impl.PedidoService;
 import com.frapecha.labella.service.impl.ProveedorService;
 import com.frapecha.labella.util.MailCutre;
@@ -17,11 +18,13 @@ import com.frapecha.labella.validator.PedidoValidator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -53,6 +56,8 @@ public class PedidoController {
 	
 	@Autowired
 	EtiquetaService etiquetaService;
+	
+	private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(PedidoController.class);
 
     @RequestMapping("/pedido/{id}")
     public ModelAndView gotoDetailPedido(@PathVariable(value = "id") Long id) {
@@ -63,6 +68,35 @@ public class PedidoController {
         mav.addObject("pedido", elpedido);
 
         return mav;
+    }
+    
+    @RequestMapping("pedido/adddate")
+    public ModelAndView updateXDays() {
+    	List<Pedido> pedidos = pedidoService.findAll();
+    	Calendar cal =null;
+    	int num = 1;
+    	int i = 0;
+    	for(Pedido pedido : pedidos) {
+    		pedido.setRevisado(true);
+    		 cal = Calendar.getInstance();
+    		Date date = pedido.getFechaentrega();
+    		int day = date.getDate();
+    		cal.set(Calendar.DAY_OF_MONTH, day);
+    		pedido.setFechaentrega(cal.getTime());
+    		pedido.setFechaentregaReal(cal.getTime());
+    		if(i==10) {
+    			pedido.setRevisado(false);
+    			i=0;
+    		}
+    		pedidoService.updatePedido(pedido);
+    		
+    		i++;
+    		num++;
+    		log.info(num+" - Pedido "+pedido.getNumeropedido());
+    	}
+    	ModelAndView mav = new ModelAndView("redirect:/");
+    	return mav;
+    	
     }
 
     @RequestMapping("/upedido/{id}")

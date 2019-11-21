@@ -224,7 +224,7 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 				//	laBella.addProveedor(preprov);
 					lprovBella.add(proveedor);
 					
-					this.laBella = laBellaService.findById(1L);
+					
 					
 					Seccion seccion = seccionService.findByTiendaAndNumero(latienda, proveedor.getNumSeccion());
 					Pedido pedido = null;
@@ -263,11 +263,17 @@ public class LaBellaProvServiceImpl implements LaBellaProvService{
 						pedidoService.updatePedido(pedido);
 						
 						pedido.setLineas(new ArrayList<>());
+						Double importe = 0.0;
+						Double uds = 0.0;
 						for(LineaPedido lineaPedido : preped.getLineas()) {
+							importe +=lineaPedido.getPvp()*lineaPedido.getEncurso();
+							uds += lineaPedido.getEncurso();
 							lineaPedidoService.saveLineaPedido(lineaPedido);
 							pedido.getLineas().add(lineaPedido);
 							log.info("    LineaPedido "+lineaPedido.getDesignacion()+" - Uds "+lineaPedido.getEncurso());
 						}
+						pedido.setImporte(importe);
+						pedido.setUds(uds);
 						pedidoService.updatePedido(pedido);
 						
 //						latienda.getSeccionByNum(preprov.getNumSeccion()).addPedido(preped);

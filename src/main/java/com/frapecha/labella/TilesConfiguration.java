@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
-@EnableWebMvc
+//@EnableWebMvc
 @Configuration
 public class TilesConfiguration  {
 	
